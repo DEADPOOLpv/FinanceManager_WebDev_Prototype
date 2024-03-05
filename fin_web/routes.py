@@ -1,6 +1,6 @@
 from fin_web import app
 from flask import render_template, redirect, url_for, flash, request
-from fin_web.models import User
+from fin_web.models import User, Expenses
 from fin_web.forms import RegisterForm, LoginForm
 from fin_web import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -8,9 +8,12 @@ from datetime import datetime, timedelta
 
 
 @app.route('/')
-@app.route('/home')
 def home_page():
     return render_template('home.html')
+
+@app.route('/home')
+def home():
+    return render_template('homepage.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -28,7 +31,7 @@ def register_page():
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
-    return render_template('register.html', form=form)
+    return render_template('signup.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
