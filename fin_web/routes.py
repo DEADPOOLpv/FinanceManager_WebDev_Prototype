@@ -49,8 +49,6 @@ def login_page():
 
     return render_template('login.html', form=form)
 
-
-
 @app.route('/logout')
 def logout_page():
     logout_user()
@@ -59,10 +57,23 @@ def logout_page():
 
 
 
+@app.route("/add")
+def adding():
+    return render_template('add.html')
 
 
-
-
-
-
-
+@app.route('/addexpense',methods=['GET', 'POST'])
+def addexpense():
+    
+    date = request.form['date']
+    expensename = request.form['expensename']
+    amount = request.form['amount']
+    paymode = request.form['paymode']
+    category = request.form['category']
+    
+    cursor = mysql.connection.cursor()
+    cursor.execute('INSERT INTO expenses VALUES (NULL,  % s, % s, % s, % s, % s, % s)', (session['id'] ,date, expensename, amount, paymode, category))
+    mysql.connection.commit()
+    print(date + " " + expensename + " " + amount + " " + paymode + " " + category)
+    
+    return redirect("/display")
