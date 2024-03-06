@@ -15,6 +15,10 @@ def home_page():
 def home():
     return render_template('homepage.html')
 
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
@@ -32,6 +36,10 @@ def register_page():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
     return render_template('signup.html', form=form)
+
+@app.route("/signin")
+def signin():
+    return render_template("login.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_page():
@@ -61,7 +69,7 @@ def logout_page():
 def adding():
     return render_template('add.html')
 
-
+"""
 @app.route('/addexpense',methods=['GET', 'POST'])
 def addexpense():
     
@@ -77,3 +85,4 @@ def addexpense():
     print(date + " " + expensename + " " + amount + " " + paymode + " " + category)
     
     return redirect("/display")
+"""
