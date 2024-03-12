@@ -4,6 +4,9 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+body{
+	background-color: rgba(255, 230, 230, 0.9); /* Light pink color with 90% opacity */ 
+}
 html {
 	font-size: 10px;
 	font-family: 'Montserrat', sans-serif;
@@ -264,7 +267,7 @@ p {
 
 /* End Hero Section */
 
-/* Services Section */
+/* Services Section */  
 #services .services {
 	flex-direction: column;
 	text-align: center;

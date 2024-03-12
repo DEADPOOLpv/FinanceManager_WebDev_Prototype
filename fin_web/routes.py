@@ -17,10 +17,10 @@ def home():
 
 @app.route("/signup")
 def signup():
-    return render_template("signup.html")
+    return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
-def register_page():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
@@ -30,19 +30,19 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('todo'))
+        return redirect(url_for('homes'))
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
-    return render_template('signup.html', form=form)
+    return render_template('login.html', form=form)
 
 @app.route("/signin")
 def signin():
     return render_template("login.html")
 
 @app.route('/login', methods=['GET', 'POST'])
-def login_page():
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.filter_by(username=form.username.data).first()
@@ -58,7 +58,7 @@ def login_page():
     return render_template('login.html', form=form)
 
 @app.route('/logout')
-def logout_page():
+def logout():
     logout_user()
     flash("You have been logged out!", category='info')
     return redirect(url_for("home_page"))
