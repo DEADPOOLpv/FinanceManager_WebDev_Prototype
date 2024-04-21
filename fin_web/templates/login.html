@@ -20,7 +20,7 @@
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
                 <br>
-                <button>Sign Up</button>
+                <a href="{{url_for('register')}}"><button>Sign Up</button></a>
                 <a href="{{ url_for('home_page') }}">Home</a>
             </form>
         </div>
@@ -31,7 +31,7 @@
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
-                <button>Sign In</button>
+                <a href="{{ url_for ('login')}}"><button>Sign In</button></a>
                 <a href="{{ url_for('home_page') }}">Home</a>
             </form>
         </div>
