@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime, timedelta
 
 
-@app.route('/')
+@app.route('/index')
 def home_page():
     return render_template('home.html')
 
@@ -30,7 +30,7 @@ def register():
         db.session.commit()
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
-        return redirect(url_for('homes'))
+        return redirect(url_for('home'))
     if form.errors != {}: #If there are not errors from the validations
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
@@ -61,7 +61,7 @@ def login():
 def logout():
     logout_user()
     flash("You have been logged out!", category='info')
-    return redirect(url_for("home_page"))
+    return redirect(url_for("register"))
 
 
 #ADDING----DATA
