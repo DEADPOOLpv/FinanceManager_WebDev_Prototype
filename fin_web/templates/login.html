@@ -13,14 +13,15 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form method="POST" class="form-register">
                 <h1>Create Account</h1>
                 <br>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                {{ form.username(class="form-control", placeholder="User Name") }}
+                {{ form.email_address(class="form-control", placeholder="Email Address") }}
+                {{ form.password1(class="form-control", placeholder="Password") }}
+                {{ form.password2(class="form-control", placeholder="Confirm Password") }}
                 <br>
-                <a href="{{url_for('register')}}"><button>Sign Up</button></a>
+                <button type="submit">Sign In</button>
                 <a href="{{ url_for('home_page') }}">Home</a>
             </form>
         </div>
