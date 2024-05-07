@@ -21,7 +21,7 @@
                 {{ form.password1(class="form-control", placeholder="Password") }}
                 {{ form.password2(class="form-control", placeholder="Confirm Password") }}
                 <br>
-                <button type="submit">Sign In</button>
+                <button type="submit">Sign Up</button>
                 <a href="{{ url_for('home_page') }}">Home</a>
             </form>
         </div>
@@ -29,10 +29,10 @@
             <form>
                 <h1>Sign In</h1>
                 <br>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+                {{ form.username(class="form-control", placeholder="User Name") }}
+                {{ form.password(class="form-control", placeholder="Password") }}
                 <a href="#">Forget Your Password?</a>
-                <a href="{{ url_for ('login')}}"><button>Sign In</button></a>
+                <button type="submit">Sign In</button></a>
                 <a href="{{ url_for('home_page') }}">Home</a>
             </form>
         </div>
