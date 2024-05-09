@@ -20,3 +20,4 @@ class Expenses(db.Model):
         paymode = db.Column(db.String())
         category = db.Column(db.String())
 db.create_all()
+
