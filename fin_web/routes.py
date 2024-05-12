@@ -102,7 +102,6 @@ def display():
   
        
     return render_template('display.html' ,expense = expense)
-                          
 
 
 
