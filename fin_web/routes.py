@@ -89,7 +89,6 @@ def addexpense():
     return redirect("/display")
 
 
-
 #DISPLAY---graph 
 
 @app.route("/display")
