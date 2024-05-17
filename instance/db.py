@@ -21,3 +21,5 @@ class Expenses(db.Model):
         category = db.Column(db.String())
 db.create_all()
 
+
+
