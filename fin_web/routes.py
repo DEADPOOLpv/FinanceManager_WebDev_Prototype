@@ -87,8 +87,7 @@ def addexpense():
     return redirect("/display")
 
 
-#DISPLAY---graph 
-
+#DISPLAY---graph
 @app.route("/display")
 def display():
     print(session["username"],session['id'])
