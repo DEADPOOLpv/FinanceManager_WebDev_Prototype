@@ -143,10 +143,7 @@ def update(id):
       
 
             
- 
-         
-    
-            
+             
  #limit
 @app.route("/limit" )
 def limit():
