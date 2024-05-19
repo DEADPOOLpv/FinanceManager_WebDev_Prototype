@@ -113,7 +113,6 @@ def delete(id):
  
     
 #UPDATE---DATA
-
 @app.route('/edit/<id>', methods = ['POST', 'GET' ])
 def edit(id):
     cursor = mysql.connection.cursor()
@@ -122,8 +121,6 @@ def edit(id):
    
     print(row[0])
     return render_template('edit.html', expenses = row[0])
-
-
 
 
 @app.route('/update/<id>', methods = ['POST'])
