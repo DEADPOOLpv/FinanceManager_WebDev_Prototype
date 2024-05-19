@@ -65,8 +65,6 @@ def logout():
 
 
 #ADDING----DATA
-
-
 @app.route("/add")
 def adding():
     return render_template('add.html')
