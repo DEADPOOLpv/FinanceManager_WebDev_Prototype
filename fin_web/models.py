@@ -31,3 +31,4 @@ class Expenses(db.Model):
         amount = db.Column(db.Integer())
         paymode = db.Column(db.String())
         category = db.Column(db.String())
+
