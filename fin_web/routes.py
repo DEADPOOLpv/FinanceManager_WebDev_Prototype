@@ -70,6 +70,7 @@ def adding():
     return render_template('add.html')
 
 
+
 """@app.route('/addexpense',methods=['GET', 'POST'])
 def addexpense():
     
