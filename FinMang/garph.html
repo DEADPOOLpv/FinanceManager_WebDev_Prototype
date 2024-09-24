@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50/30/20 Rule Salary Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        canvas {
+            margin-top: 40px;
+        }
+    </style>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <h2>Salary Breakdown (50/30/20 Rule)</h2>
+    <div class="result">
+        <h2>With the Provided Salary your General Spending should be like this:</h2>
+        <p><strong>Needs (50%)(like: Housing, utilities, groceries):</strong> $<span id="needsAmount"></span></p>
+        <p><strong>Wants (30%)(like: Entertainment, dining out, etc.):</strong> $<span id="wantsAmount"></span></p>
+        <p><strong>Savings (20%)(like: Savings, debt repayment):</strong> $<span id="savingsAmount"></span></p>
+    </div>
+
+    <!-- Canvas for bar chart -->
+    <canvas id="salaryExpensesChart" width="400" height="200"></canvas>
+
+    <script>
+        // Retrieve salary and expenses from localStorage
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        let salary = JSON.parse(localStorage.getItem('salary')) || 0;
+
+        // Calculate total expenses
+        let totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+
+        // Display the salary breakdown (50/30/20 rule)
+        if (salary) {
+            const salaryy= salary;
+            const needs = salary * 0.50;
+            const wants = salary * 0.30;
+            const savings = salary * 0.20;
+
+            document.getElementById('needsAmount').innerText = needs.toFixed(2);
+            document.getElementById('wantsAmount').innerText = wants.toFixed(2);
+            document.getElementById('savingsAmount').innerText = savings.toFixed(2);
+            
+        } else {
+            alert('Please enter a valid salary amount.');
+        }
+
+        // Prepare the data for the chart (Salary vs Total Expenses)
+        let labels = ['Total Salary', 'Total Expenses']; // Labels for the bars
+        let data = [salary, totalExpenses]; // Data for the bars (salary and expenses)
+
+        // Create the bar chart using Chart.js
+        let ctx = document.getElementById('salaryExpensesChart').getContext('2d');
+        let salaryExpensesChart = new Chart(ctx, {
+            type: 'bar', // Bar chart
+            data: {
+                labels: labels, // Labels for the bars
+                datasets: [{
+                    label: 'Amount (in currency)',
+                    data: data, // Data for each bar
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)', // Blue for salary
+                        'rgba(255, 99, 132, 0.2)'  // Red for expenses
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',    // Blue border for salary
+                        'rgba(255, 99, 132, 1)'     // Red border for expenses
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true // Ensure the y-axis starts at zero
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let value = context.raw;
+                                return 'Amount: ' + value.toLocaleString(); 
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
