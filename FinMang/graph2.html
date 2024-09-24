@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenditure Pie Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+    canvas {
+      max-width: 600px;
+      max-height: 600px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Expenditure Breakdown</h1>
+  <canvas id="expenditureChart"></canvas>
+
+  <script>
+    let food = JSON.parse(localStorage.getItem('food')) || 0;
+    let savings = JSON.parse(localStorage.getItem('savings')) || 0;
+    let entertainment = JSON.parse(localStorage.getItem('entertainment')) || 0;
+    let debt = JSON.parse(localStorage.getItem('debt')) || 0;
+    let totalExpenditure = JSON.parse(localStorage.getItem('expenses')) || 0;
+
+
+    const data = {
+      labels: ['Food', 'Savings', 'Entertainment', 'Debt'],
+      datasets: [{
+        label: 'Expenditure Categories',
+        data: [food, savings, entertainment, debt],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.5)', // Food - Red
+          'rgba(54, 162, 235, 0.5)', // Savings - Blue
+          'rgba(255, 206, 86, 0.5)', // Entertainment - Yellow
+          'rgba(75, 192, 192, 0.5)', // Debt - Green
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',  // Food
+          'rgba(54, 162, 235, 1)',  // Savings
+          'rgba(255, 206, 86, 1)',  // Entertainment
+          'rgba(75, 192, 192, 1)',  // Debt
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const value = tooltipItem.raw;
+                const percentage = ((value / totalExpenditure) * 100).toFixed(2);
+                return `${tooltipItem.label}: ${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      },
+    };
+
+    const expenditureChart = new Chart(
+      document.getElementById('expenditureChart'),
+      config
+    );
+  </script>
+</body>
+</html>
+
+
+
