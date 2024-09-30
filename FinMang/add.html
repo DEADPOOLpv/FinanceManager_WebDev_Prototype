@@ -74,23 +74,13 @@
           </div>
           <div class="form-group">
             <label for="amount">Expense Amount</label>
-            <input class="form-control" type="number" min="0" name="amount" id="amount">
+            <input class="form-control" type="number" min="0" name="amount" id="amount" placeholder="Total expense of the Month">
           </div>
           <div class="form-group">
             <label for="salary">Salary Amount:</label>
-            <input class="form-control" type="number" id="salary" required><br>
+            <input class="form-control" type="number" id="salary" placeholder="Total salary per Month" required><br>
           </div>
-          <div class="form-group">
-            <label for="paymode">Payment Method</label>
-            <select class="form-control" name="paymode" id="paymode">
-              <option selected hidden>Pay-Mode</option>
-              <option value="cash">Cash</option>
-              <option value="debitcard">Debit Card</option>
-              <option value="creditcard">Credit Card</option>
-              <option value="epayment">E-Payment</option>
-              <option value="onlinebanking">Online Banking</option>
-            </select>
-          </div>
+          
           <input class="btn btn-danger" type="submit" value="Add" id="submit">
         </form>
       </div>
@@ -109,7 +99,6 @@
       let newExpense = {
         id: expenses.length + 1,
         amount: amount,
-        paymentMethod: paymentMethod,
         date: date,
       };
       expenses.push(newExpense); 
@@ -122,14 +111,13 @@
       event.preventDefault();
       let amount = document.getElementById("amount").value;
       let salaryAmount = document.getElementById("salary").value;
-      let paymentMethod = document.getElementById("paymode").value;
       let date = document.getElementById("date").value;
 
-      addExpense(amount, salaryAmount,  paymentMethod, date); 
+      addExpense(amount, salaryAmount,date); 
 
       let choice = prompt("Where do you want to go next?\nType '1' for Expense List or '2' for Graph View");
       if (choice === '1') {
-        window.location.href = 'display.html';
+        window.location.href = 'catagory.html';
       } else if (choice === '2') {
         window.location.href = 'garph.html';
       } else {
