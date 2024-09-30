@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Add Expense</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Spend$mart</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="homepage.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="add.html">Add Expense</a></li>
+        <li class="nav-item"><a class="nav-link" href="display.html">History</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h3>Add Expense</h3>
+    <form>
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" placeholder="Enter amount">
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select class="form-control" id="category">
+          <option selected hidden>Category</option>
+          <option value="Food">Food</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Savings">Savings</option>
+          <option value="Debt">Debt</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="paymode">Payment Method</label>
+        <select class="form-control" name="paymode" id="paymode">
+          <option selected hidden>Pay-Mode</option>
+          <option value="cash">Cash</option>
+          <option value="debitcard">Debit Card</option>
+          <option value="creditcard">Credit Card</option>
+          <option value="epayment">E-Payment</option>
+          <option value="onlinebanking">Online Banking</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary" id="add">Add</button>
+    </form>
+  </div>
+
+  <script>
+  document.getElementById("add").addEventListener('click', function() {
+    const category = document.getElementById('category').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+
+    // Fetch category-wise expenses from localStorage or initialize it
+    let expenses = JSON.parse(localStorage.getItem('categoryExpenses')) || {
+      Food: 0,
+      Entertainment: 0,
+      Savings: 0,
+      Debt: 0
+    };
+
+    // Ensure valid input
+    if (category !== 'Category' && !isNaN(amount)) {
+        // Update the specific category amount
+        expenses[category] = (expenses[category] || 0) + amount;
+        
+        // Save the updated expenses back to localStorage
+        localStorage.setItem('categoryExpenses', JSON.stringify(expenses));
+
+        console.log(`Added ${amount} to ${category}.`);
+
+        // Ask the user if they want to add more categories or view the graph
+        const userChoice = confirm('Do you want to continue adding more categories or view the graph? \n\n"OK" to continue adding more categories, "Cancel" to view the graph.');
+
+        if (userChoice) {
+            // Reset form fields
+            document.getElementById('category').value = 'Category';
+            document.getElementById('amount').value = '';
+        } else {
+            window.location.href = 'graph2.html';
+        }
+    } else {
+        console.log('Please select a valid category and enter a valid amount.');
+    }
+  });
+  </script>
+</body>
+</html>
