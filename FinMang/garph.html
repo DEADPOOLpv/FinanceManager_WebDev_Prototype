@@ -39,9 +39,8 @@
 
         // Calculate total expenses
         let totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
-
+        
         // Display the salary breakdown (50/30/20 rule)
-        if (salary) {
             const salaryy= salary;
             const needs = salary * 0.50;
             const wants = salary * 0.30;
@@ -51,10 +50,7 @@
             document.getElementById('wantsAmount').innerText = wants.toFixed(2);
             document.getElementById('savingsAmount').innerText = savings.toFixed(2);
             
-        } else {
-            alert('Please enter a valid salary amount.');
-        }
-
+        
         // Prepare the data for the chart (Salary vs Total Expenses)
         let labels = ['Total Salary', 'Total Expenses']; // Labels for the bars
         let data = [salary, totalExpenses]; // Data for the bars (salary and expenses)
@@ -101,6 +97,15 @@
                 }
             }
         });
+
+        window.onload = function() {
+    localStorage.removeItem('food');
+    localStorage.removeItem('savings');
+    localStorage.removeItem('entertainment');
+    localStorage.removeItem('debt');
+    localStorage.removeItem('expenses');
+    localStorage.removeItem('totalExpenses');
+};
     </script>
 
 </body>
