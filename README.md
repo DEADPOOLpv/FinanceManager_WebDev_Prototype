@@ -1,4 +1,4 @@
-# moneyapp_speed_code
+# fin_mag
 
 A new Flutter project.
 
