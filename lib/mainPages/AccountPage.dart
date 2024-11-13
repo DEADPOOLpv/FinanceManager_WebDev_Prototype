@@ -44,7 +44,7 @@ class _AccountPageState extends State<AccountPage> {
           child: Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 15),
               child: Text(
-                "Hey Alisha!",
+                "Hey User!",
                 style: TextStyle(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.bold,
