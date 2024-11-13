@@ -23,7 +23,7 @@ class _AccountPageState extends State<AccountPage> {
             child: Text(
               "My Account",
               style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.greenAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 18),
             ),

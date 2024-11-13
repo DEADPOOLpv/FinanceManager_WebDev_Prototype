@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Payday in a week",
+                              "Add Expense",
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

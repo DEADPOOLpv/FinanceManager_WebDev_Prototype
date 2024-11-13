@@ -20,7 +20,7 @@ class _PastTransactionsPageState extends State<PastTransactionsPage> {
         // ignore: prefer_const_constructors
         title: Text(
           "Past Transactions",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold),
         ),
       ),
       body: (Container(child: UpcomingTransactionsList())),

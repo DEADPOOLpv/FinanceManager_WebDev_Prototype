@@ -19,7 +19,7 @@ class _TransactionPageState extends State<TransactionPage> {
       appBar: AppBar(
         title: const Text(
           "Upcoming Transactions",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold),
         ),
       ),
       body: (Container(child: const PastTransactionsList())),
