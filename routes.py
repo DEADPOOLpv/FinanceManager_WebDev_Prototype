@@ -1,8 +1,10 @@
 from flask import Blueprint, request, render_template, jsonify, session, current_app
-from .database import insert_expense
 from llama_cpp import Llama
 from .models import User
 from flask import current_app, redirect, url_for
+import boto3
+import os
+import openpyxl
 
 from .models import CategoryExpenses,Expenses
 
@@ -488,3 +490,76 @@ def get_display_data():
     except Exception as e:
         print("Error in get_display_data:", str(e))
         return jsonify({"error": "An error occurred while fetching data"}), 500
+    
+ #generate the reports
+@main.route('/generate_report', methods=['GET'])
+def generate_report():
+    try:
+        # Validate user session
+        user_id = session.get('user_id')
+        if not user_id:
+            return jsonify({"error": "User not logged in"}), 401
+
+        # Fetch category expenses and salary from the database
+        category_expenses = CategoryExpenses.query.filter_by(user_id=user_id).all()
+        category_expenses_dict = {"food": 0, "entertainment": 0, "savings": 0, "debt": 0}
+
+        # Sum expenses by category
+        for expense in category_expenses:
+            category = expense.category_name.lower()
+            if category in category_expenses_dict:
+                category_expenses_dict[category] += float(expense.amount)
+
+        # Calculate total general expenses and maximum salary
+        user_expenses = Expenses.query.filter_by(user_id=user_id).all()
+        total_general_expenses = sum(exp.amount for exp in user_expenses)
+        salary = max((exp.salary for exp in user_expenses if exp.salary is not None), default=0)
+
+        # File setup
+        file_name = f"financial_report_{user_id}.xlsx"
+        file_path = os.path.join(os.getcwd(), file_name)
+
+        # Create an Excel file
+        workbook = openpyxl.Workbook()
+        sheet = workbook.active
+        sheet.title = "Financial Report"
+
+        # Write data to the Excel file
+        sheet.append(["Category", "Amount"])
+        for category, amount in category_expenses_dict.items():
+            sheet.append([category.capitalize(), amount])
+        sheet.append(["General Expenses", total_general_expenses])
+        sheet.append(["Salary", salary])
+
+        # Save the file locally
+        workbook.save(file_path)
+
+        # Upload file to S3
+        s3_client = boto3.client('s3')
+        bucket_name = 's3-demo-project-123'
+        s3_client.upload_file(file_path, bucket_name, file_name)
+
+        # Generate a pre-signed URL for secure download
+        presigned_url = s3_client.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': bucket_name, 'Key': file_name},
+            ExpiresIn=3600  # URL valid for 1 hour
+        )
+
+        # Clean up local file after upload
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        # Return the URL in the response for user download
+        return jsonify({
+            "message": "Report generated and uploaded successfully!",
+            "download_url": presigned_url
+        }), 200
+
+    except boto3.exceptions.Boto3Error as e:
+        print(f"AWS S3 Error: {str(e)}")
+        return jsonify({"error": "Failed to upload file to S3"}), 500
+
+    except Exception as e:
+        print(f"Error in generate_report: {str(e)}")
+        return jsonify({"error": "An unexpected error occurred"}), 500
