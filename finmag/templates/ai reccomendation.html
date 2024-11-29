@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Financial Advices</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon_coin.ico') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #e3f2fd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .navbar-nav .nav-link {
+            color: #555;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: darkred;
+        }
+
+        .dropdown-menu .dropdown-item {
+            font-size: 0.9rem;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: darkred;
+        }
+
+        #advice-container {
+            margin: 80px auto 0;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #444;
+        }
+
+        #advice {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #006400; /* Dark green */
+            margin-top: 15px;
+        }
+
+        .alert {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .spinner-border {
+            margin: 20px auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{{ url_for('main.homepage') }}">Spend$mart</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.homepage') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.basic_recommendation') }}">B.AI</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.graph') }}">G</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.category') }}">G2</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.ai_recommendation') }}">AI</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.add') }}">Add</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.display') }}">History</a></li>
+            </ul>
+        </div>
+        <div class="form-inline">
+            <div class="btn-group">
+                <button class="btn btn-primary"><i class="fa fa-user fa-fw"></i> User</button>
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#">  </a>
+                    <a class="dropdown-item" href="#">  </a>
+                    <a class="dropdown-item" href="#"> </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-danger" href="#" id="logout-button">Log Out <i class="fa fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="advice-container">
+        <h1>Your Financial Advice</h1>
+        <p id="advice">Loading advice, please wait...</p>
+        <div id="loading-spinner" class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div id="error-alert" class="alert alert-danger"></div>
+    </div>
+
+    <script>
+        const showError = (message) => {
+            const errorAlert = document.getElementById("error-alert");
+            errorAlert.textContent = message;
+            errorAlert.style.display = "block";
+        };
+
+        const toggleSpinner = (show) => {
+            document.getElementById("loading-spinner").style.display = show ? "block" : "none";
+        };
+
+        // Fetch financial advice
+        toggleSpinner(true);
+        fetch("http://127.0.0.1:5000/get_display_data")
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showError(`Error: ${data.error}`);
+                    toggleSpinner(false);
+                    return;
+                }
+
+                fetch("http://127.0.0.1:5000/get_financial_advice", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        generalExpenses: data.generalExpenses || 0,
+                        salary: data.salary || 0,
+                        food: data.categoryExpenses?.food || 0,
+                        entertainment: data.categoryExpenses?.entertainment || 0,
+                        savings: data.categoryExpenses?.savings || 0,
+                        debt: data.categoryExpenses?.debt || 0
+                    })
+                })
+                .then(response => response.json())
+                .then(adviceData => {
+                    const adviceElement = document.getElementById("advice");
+                    toggleSpinner(false);
+                    if (adviceData.advice) {
+                        adviceElement.textContent = adviceData.advice;
+                    } else {
+                        showError(adviceData.error || "An unexpected error occurred.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching advice:", error);
+                    showError("Network error occurred. Please try again later.");
+                    toggleSpinner(false);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching financial data:", error);
+                showError("Failed to load financial data. Please try again later.");
+                toggleSpinner(false);
+            });
+    </script>
+</body>
+</html>
+
