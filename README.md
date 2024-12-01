@@ -1,6 +1,6 @@
 # Finance Manager Mobile App
 
-This is a mobile app made using Flutter framework
+This is the mobile app made using Flutter Framework
 
 <table>
   <tr>
