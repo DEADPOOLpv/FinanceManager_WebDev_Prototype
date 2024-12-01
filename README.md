@@ -2,4 +2,4 @@
 
 This is a mobile app made using Flutter framework
 
-![HomePage_Screenshot](Home_page.jpg)
+![HomePage_Screenshot](Home_Page.jpg)
