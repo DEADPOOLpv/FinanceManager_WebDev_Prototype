@@ -2,4 +2,9 @@
 
 This is a mobile app made using Flutter framework
 
-![HomePage_Screenshot](Home_Page.jpg)
+<table>
+  <tr>
+    <td><img src="Home_Page.jpg" alt="HomePage_Screenshot" width="400"></td>
+    <td><img src="Transaction_Page.jpg" alt="TransactionPage_Screenshot" width="400"></td>
+  </tr>
+</table>
