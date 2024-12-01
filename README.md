@@ -5,8 +5,8 @@ This GitHub repository houses a user-friendly finance management web application
 
 <table>
   <tr>
-    <td><img src="Reg_SS.jpg" alt="LoginPage" width="400"></td>
-    <td><img src="Log_SS.jpg" alt="LoginPage" width="400"></td>
+    <td><img src="Reg_SS.jpg" alt="LoginPage" width="500"></td>
+    <td><img src="Log_SS.jpg" alt="LoginPage" width="500"></td>
   </tr>
 </table>
 
