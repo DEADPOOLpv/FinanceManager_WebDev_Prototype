@@ -2,8 +2,13 @@
 This GitHub repository houses a user-friendly finance management web application built with Python's Flask framework. It empowers you to track your income and expenses, categorize your spending, and gain valuable financial insights, all within a secure and user-friendly environment.
 
 ![HomePage_Screenshot](Homepage_Screenshot.png)
-![LoginPage_Screenshot](Reg_SS.jpg)
-![LoginPage_Screenshot](Log_SS.jpg)
+
+<table>
+  <tr>
+    <td><img src="Reg_SS.jpg" alt="LoginPage" width="400"></td>
+    <td><img src="Log_SS.jpg" alt="LoginPage" width="400"></td>
+  </tr>
+</table>
 
 ## Key Features:
 
