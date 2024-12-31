@@ -1,7 +1,6 @@
 # Finance Manager Web App - Take Control of Your Finances!
 This GitHub repository houses a user-friendly finance management web application built with Python's Flask framework. It empowers you to track your income and expenses, categorize your spending, and gain valuable financial insights, all within a secure and user-friendly environment.
 <br>
-[Mobile App here](https://github.com/DEADPOOLpv/FinanceManager_WebDev_Prototype/tree/MobileUI)
 <br>
 [Website Demo Video](https://youtu.be/KP0pdZVJfPg)
 
@@ -35,4 +34,6 @@ This GitHub repository houses a user-friendly finance management web application
 
 This repository provides a transparent view of the application's source code, allowing you to understand its inner workings. Feel free to fork the repository, experiment with the code, and contribute to its development by submitting pull requests for enhancements or bug fixes. We welcome collaborative efforts to make this finance management tool even more robust and user-friendly.
 
+<br>
+[Mobile App here](https://github.com/DEADPOOLpv/FinanceManager_WebDev_Prototype/tree/MobileUI)
 #### This finance manager web application equips you with the tools and insights needed to manage your finances effectively. Take control of your spending habits and work towards achieving your financial goals!
